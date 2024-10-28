@@ -1,0 +1,19 @@
+version: '3.0'
+
+services:
+  app:
+    image: '679aee185c96'
+    container_name: 'NGS_app'
+    environment:
+      - MONGODB_URL=mongodb://db_m:27017/orderNumbersDB
+    expose:
+      - '8091'
+    ports:
+      - '8091:8091'
+    depends_on:
+      - 'db_m'
+  db_m:
+    image: 'mongo'
+    ports:
+      - '27017:27017'
+    container_name: 'db_m'

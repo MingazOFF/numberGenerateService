@@ -1,0 +1,77 @@
+openapi: 3.0.1
+info:
+  title: Number-generate service API
+  description: Number-generate service
+  contact:
+    name: Renat Mingazov
+    email: mingazofff@gmail.com
+  version: 1.0.0
+servers:
+- url: http://localhost:8082
+  description: Generated server url
+tags:
+- name: Main controller
+  description: This is the main and only controller
+paths:
+  /numbers:
+    get:
+      tags:
+      - Main controller
+      summary: Get the new order number in String format
+      description: Create new unique order number and get in String format
+      operationId: getOrderNumberValueAndDate
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /numbers2:
+    get:
+      tags:
+      - Main controller
+      summary: Get the new order number in JSON format
+      description: Create new unique order number and get in JSON format
+      operationId: getOrderNumber
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderNumber"
+  /numbers/all:
+    get:
+      tags:
+      - Main controller
+      summary: Get all order numbers in JSON format
+      description: Get all order numbers from DB in String format
+      operationId: getAllOrderNumber
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderNumber"
+components:
+  schemas:
+    OrderNumber:
+      type: object
+      properties:
+        id:
+          type: string
+          description: identifier
+          format: uuid
+        value:
+          type: string
+          description: order number's value
+          example: "12345"
+        date:
+          type: string
+          description: date of generation order number in YYYYMMDD format
+          example: "20240229"
+      description: Order number entity
